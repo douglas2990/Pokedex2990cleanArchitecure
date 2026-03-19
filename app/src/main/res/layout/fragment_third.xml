@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.ThirdFragmentForSpinner">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+
+        <Button
+            android:id="@+id/button_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            app:layout_constraintBottom_toTopOf="@id/spinner_pokemon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_pokemon"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_first" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewPokemon"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_pokemon"
+            android:layout_marginTop="10dp">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/details_shimmer_pokemon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                app:shimmer_auto_start="false">
+
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/detail_pokemon"
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
+                    tools:background="@drawable/ic_launcher_foreground" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/detais_shimmer_namePokemon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="230dp"
+                app:shimmer_auto_start="false">
+
+                <TextView
+                    android:id="@+id/detail_namePokemon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="PIKACHU" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/detais_shimmer_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="275dp"
+                app:shimmer_auto_start="false">
+
+                <Button
+                    android:id="@+id/type_pokemon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/detail_shimmer_type1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="275dp"
+                app:shimmer_auto_start="false">
+
+                <Button
+                    android:id="@+id/type_pokemon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/detais_shimmer_type2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="70dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="275dp"
+                app:shimmer_auto_start="false">
+
+                <Button
+                    android:id="@+id/type_pokemon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <EditText
+            android:id="@+id/editTextGambiarra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewPokemon"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextGambiarra"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_pokemon" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

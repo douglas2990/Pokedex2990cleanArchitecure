@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.FourthFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewPokemon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/details_shimmer_pokemon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:shimmer_auto_start="false">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/detail_pokemon"
+                        android:layout_width="220dp"
+                        android:layout_height="220dp"
+                        tools:background="@drawable/ic_launcher_foreground" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/detais_shimmer_namePokemon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:shimmer_auto_start="false">
+
+                    <TextView
+                        android:id="@+id/detail_namePokemon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        tools:text="#025 PIKACHU" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/detais_shimmer_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:shimmer_auto_start="false">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewTypes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/list_type_adapter" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/cardViewPokemon">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BASE STATS"
+                    android:textColor="@color/my_light_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- HP -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="HP" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary"/>
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp">
+                    <ProgressBar android:id="@+id/progressBarHp" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="12dp" android:layout_toStartOf="@id/textHpValue" android:layout_marginEnd="12dp" android:layout_centerVertical="true" android:max="255" android:progressTint="#FF0000" />
+                    <TextView android:id="@+id/textHpValue" android:layout_width="40dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="end" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary" tools:text="100" />
+                </RelativeLayout>
+
+                <!-- Attack -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Attack" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary"/>
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp">
+                    <ProgressBar android:id="@+id/progressBarAttack" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="12dp" android:layout_toStartOf="@id/textAttackValue" android:layout_marginEnd="12dp" android:layout_centerVertical="true" android:max="255" android:progressTint="#F08030" />
+                    <TextView android:id="@+id/textAttackValue" android:layout_width="40dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="end" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary" tools:text="100" />
+                </RelativeLayout>
+
+                <!-- Defense -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Defense" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary"/>
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp">
+                    <ProgressBar android:id="@+id/progressBarDefense" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="12dp" android:layout_toStartOf="@id/textDefenseValue" android:layout_marginEnd="12dp" android:layout_centerVertical="true" android:max="255" android:progressTint="#F8D030" />
+                    <TextView android:id="@+id/textDefenseValue" android:layout_width="40dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="end" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary" tools:text="100" />
+                </RelativeLayout>
+
+                <!-- Sp. Atk -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sp. Atk" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary"/>
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp">
+                    <ProgressBar android:id="@+id/progressBarSpAtk" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="12dp" android:layout_toStartOf="@id/textSpAtkValue" android:layout_marginEnd="12dp" android:layout_centerVertical="true" android:max="255" android:progressTint="#6890F0" />
+                    <TextView android:id="@+id/textSpAtkValue" android:layout_width="40dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="end" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary" tools:text="100" />
+                </RelativeLayout>
+
+                <!-- Sp. Def -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sp. Def" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary"/>
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp">
+                    <ProgressBar android:id="@+id/progressBarSpDef" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="12dp" android:layout_toStartOf="@id/textSpDefValue" android:layout_marginEnd="12dp" android:layout_centerVertical="true" android:max="255" android:progressTint="#78C850" />
+                    <TextView android:id="@+id/textSpDefValue" android:layout_width="40dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="end" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary" tools:text="100" />
+                </RelativeLayout>
+
+                <!-- Speed -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Speed" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary"/>
+                <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp">
+                    <ProgressBar android:id="@+id/progressBarSpeed" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="12dp" android:layout_toStartOf="@id/textSpeedValue" android:layout_marginEnd="12dp" android:layout_centerVertical="true" android:max="255" android:progressTint="#F85888" />
+                    <TextView android:id="@+id/textSpeedValue" android:layout_width="40dp" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:gravity="end" android:textStyle="bold" android:textColor="?android:attr/textColorPrimary" tools:text="100" />
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewEgg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewStats">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/egg_group"
+                    android:textColor="@color/my_light_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"/>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/detais_shimmer_egg_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:shimmer_auto_start="false">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewEggGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/egg_group_adapter" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
