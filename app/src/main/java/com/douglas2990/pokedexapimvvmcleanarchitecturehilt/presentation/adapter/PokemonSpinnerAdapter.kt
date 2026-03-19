@@ -11,11 +11,10 @@ import com.bumptech.glide.Glide
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.R
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.detalhe.DetalhePokemon1
 
-
-class PokemonSpinnerAdapter(context: Context,list: List<DetalhePokemon1>,
-                            private var listenner: PokemonInterface? = null
-) :
-    ArrayAdapter<DetalhePokemon1>(context,0, list) {
+class PokemonSpinnerAdapter(
+    context: Context,
+    private val list: List<DetalhePokemon1>
+) : ArrayAdapter<DetalhePokemon1>(context, 0, list) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
@@ -25,41 +24,35 @@ class PokemonSpinnerAdapter(context: Context,list: List<DetalhePokemon1>,
         return initView(position, convertView, parent)
     }
 
-    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View{
-
-        val pokemonList = getItem(position)
-
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.pokemon_adapter,parent,false)
+    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val pokemon = getItem(position)
+        
+        // Reutilização de view otimizada
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.pokemon_adapter, parent, false)
+        
         val texViewPokemon: TextView = view.findViewById(R.id.txtNomePokemon)
         val textViewNumero: TextView = view.findViewById(R.id.txtNumeroPokemon)
         val imgViewPokemon: ImageView = view.findViewById(R.id.imgPokemon)
 
-        texViewPokemon.text = pokemonList?.nome?.replaceFirstChar(Char::titlecaseChar)
-
-        val pokemonId = pokemonList?.id.toString()
-
-        if(pokemonId !!.toInt() < 900) {
-            //textViewNumero.text = pokemonId.padStart(3, '0')
-            textViewNumero.text = pokemonId.toString()
-        }else{
+        texViewPokemon.text = pokemon?.nome?.replaceFirstChar { it.titlecase() }
+        
+        val pokemonId = pokemon?.id?.toString() ?: ""
+        if (pokemonId.isNotEmpty() && pokemonId.toInt() < 1000) {
+            textViewNumero.text = "#${pokemonId.padStart(3, '0')}"
+        } else {
             textViewNumero.text = ""
         }
 
-        Glide.with(imgViewPokemon)
-            .load(pokemonList?.esprites?.other?.home?.front_default)
+        // Carregamento de imagem eficiente
+        Glide.with(view.context)
+            .load(pokemon?.esprites?.other?.home?.front_default)
+            .placeholder(R.drawable.ic_launcher_foreground)
             .into(imgViewPokemon)
 
-
-        convertView?.setOnClickListener {
-            listenner?.click(pokemonId.toString())
-        }
+        // IMPORTANTE: Removemos o setOnClickListener de dentro do Adapter.
+        // Em um Spinner, o clique deve ser tratado pelo onItemSelectedListener do Spinner na Fragment.
+        // Se houver um ClickListener aqui, ele "rouba" o toque e o Spinner não seleciona o item.
 
         return view
     }
-
-    interface PokemonInterface {
-        fun click(pokemonId: String)
-    }
-
-
 }

@@ -39,8 +39,8 @@ class FirstFragment : Fragment() {
             //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundleOf("id" to pokemonId))
             //findNavController().navigate(R.id.action_FirstFragment_to_FourthFragment, bundleOf("id" to pokemonId))
             findNavController().navigate(
-                //R.id.action_FirstFragment_to_SixthFragment,
-                R.id.action_FirstFragment_to_ThirdFragment,
+                R.id.action_FirstFragment_to_SixthFragment,
+                //R.id.action_FirstFragment_to_ThirdFragment,
                 bundleOf("id" to pokemonId)
             )
         }
