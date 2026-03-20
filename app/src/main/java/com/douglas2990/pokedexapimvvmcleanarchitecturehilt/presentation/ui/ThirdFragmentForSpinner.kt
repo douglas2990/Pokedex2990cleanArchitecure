@@ -25,7 +25,6 @@ class ThirdFragmentForSpinner : Fragment() {
     private var _binding: FragmentThirdForSpinnerBinding? = null
     private val binding get() = _binding!!
 
-    // ALTERAÇÃO: Usando activityViewModels para pegar os dados que a Splash já carregou
     private val pokemonListDetailViewModel by activityViewModels<PokemonListDetailViewModel>()
     private val detailPokemonViewModel by viewModels<DetailPokemonViewModel>()
 
@@ -43,6 +42,11 @@ class ThirdFragmentForSpinner : Fragment() {
 
         setupRecyclerViews()
         initObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Movendo a lógica para o onResume para garantir que o Spinner seja populado quando a view estiver pronta
         initPokemonListDetailSpinnerViewModel()
     }
 
@@ -60,7 +64,7 @@ class ThirdFragmentForSpinner : Fragment() {
     }
 
     private fun initPokemonListDetailSpinnerViewModel() {
-        // Como a Splash já garantiu que a lista está carregada, isso será disparado imediatamente
+        // Observa a lista. Como ela já foi carregada pela Splash na Activity, o valor deve estar disponível.
         pokemonListDetailViewModel.listaDetailPokemon.observe(viewLifecycleOwner) { resultPokemon ->
             if (resultPokemon != null && resultPokemon.isNotEmpty()) {
                 val adapter = PokemonSpinnerAdapter(requireContext(), resultPokemon)
@@ -70,17 +74,18 @@ class ThirdFragmentForSpinner : Fragment() {
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                         val pokemonSelecionado = resultPokemon[position]
                         
-                        // Atualiza interface com dados já disponíveis na memória
                         binding.detailNamePokemon.text = "#${pokemonSelecionado.id.toString().padStart(3, '0')} ${pokemonSelecionado.nome.uppercase()}"
                         binding.detailPokemon.load(pokemonSelecionado.esprites.other.home.front_default)
                         binding.recyclerViewTypes.adapter = ListTypeAdapter(pokemonSelecionado.tipos)
                         
-                        // Busca apenas os Stats em background
                         detailPokemonViewModel.recuperarPokemon(pokemonSelecionado.id.toString())
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
+            } else {
+                // Se por algum motivo a lista estiver vazia, tenta recuperar novamente
+                pokemonListDetailViewModel.recuperarResultado()
             }
         }
     }

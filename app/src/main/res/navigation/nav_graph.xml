@@ -37,6 +37,10 @@
             android:id="@+id/action_SplashFragment_to_ThirdFragmentForSpinner"
             app:destination="@id/ThirdFragmentForSpinner"
             app:popUpTo="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SplashFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment"
+             />
     </fragment>
 
     <fragment

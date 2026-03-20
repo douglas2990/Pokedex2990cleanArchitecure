@@ -36,7 +36,8 @@ class SplashFragment : Fragment() {
         pokemonListDetailViewModel.listaDetailPokemon.observe(viewLifecycleOwner) { resultPokemon ->
             if (resultPokemon != null && resultPokemon.isNotEmpty()) {
                 // Navega para o Spinner
-                findNavController().navigate(R.id.action_SplashFragment_to_ThirdFragmentForSpinner)
+                //findNavController().navigate(R.id.action_SplashFragment_to_ThirdFragmentForSpinner)
+                findNavController().navigate(R.id.action_SplashFragment_to_FirstFragment)
             }
         }
     }
