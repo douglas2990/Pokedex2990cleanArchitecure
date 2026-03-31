@@ -1,6 +1,6 @@
 package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.state
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.Result
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.Resultado
 

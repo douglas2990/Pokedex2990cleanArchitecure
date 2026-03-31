@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -14,39 +15,31 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.R
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.databinding.FragmentFirstBinding
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.Resultado
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.ListPokemonAdapter
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.ListPokemonDetailAdapter
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.PokemonAdapterTypesDetail
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.PokemonInterface
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.PokemonListDetailViewModel
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.PokemonListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 @AndroidEntryPoint
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
+    private val binding get() = _binding !!
 
     private val pokemonListViewModel by viewModels<PokemonListViewModel>()
-    private val pokemonListDetailViewModel by viewModels<PokemonListDetailViewModel>()
+    private var adapter: ListPokemonAdapter? = null
+    private var fullList: List<Resultado> = emptyList()
 
     private val firstListener = object : PokemonInterface {
         override fun onClick(pokemonId: String){
-
-            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundleOf("id" to pokemonId))
-            //findNavController().navigate(R.id.action_FirstFragment_to_FourthFragment, bundleOf("id" to pokemonId))
             findNavController().navigate(
                 R.id.action_FirstFragment_to_SixthFragment,
-                //R.id.action_FirstFragment_to_ThirdFragment,
                 bundleOf("id" to pokemonId)
             )
         }
     }
-
-    private val binding get() = _binding !!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,28 +57,43 @@ class FirstFragment : Fragment() {
         binding.firstProgress.isVisible = view.isInvisible
 
         initPokemonListViewModel()
+        setupSearchView()
+    }
+
+    private fun setupSearchView() {
+        binding.searchPokemon.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+        })
+    }
+
+    private fun filterList(query: String?) {
+        if (query != null) {
+            val filteredList = fullList.filter { pokemon ->
+                val pokemonId = pokemon.urlDaApi.replace("https://pokeapi.co/api/v2/pokemon/", "")
+                    .replace("/", "")
+                pokemon.nome.lowercase().contains(query.lowercase()) || pokemonId.contains(query)
+            }
+            adapter?.updateList(filteredList)
+        }
+    }
+
+    fun initPokemonListViewModel(){
+        pokemonListViewModel.listaPokemon.observe(viewLifecycleOwner){ resultPokemon->
+            fullList = resultPokemon
+            adapter = ListPokemonAdapter(resultPokemon, firstListener)
+            binding.recyclerFirst.adapter = adapter
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    fun initPokemonListViewModel(){
-        pokemonListViewModel.listaPokemon.observe(viewLifecycleOwner){ resultPokemon->
-            binding.recyclerFirst.adapter = ListPokemonAdapter(resultPokemon, firstListener)
-        }
-    }
-
-    fun initPokemonListDetailViewModel(){
-        pokemonListDetailViewModel.listaDetailPokemon.observe(viewLifecycleOwner){ resultPokemon->
-            binding.recyclerFirst.adapter = ListPokemonDetailAdapter(resultPokemon, firstListener)
-        }
-    }
-
-    fun initPokemonListDetailTypeViewModel(){
-        pokemonListDetailViewModel.listaDetailPokemon.observe(viewLifecycleOwner){ resultPokemon->
-            binding.recyclerFirst.adapter = PokemonAdapterTypesDetail(resultPokemon,requireContext(), firstListener)
-        }
     }
 }

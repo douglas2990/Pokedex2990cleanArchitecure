@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PokedexApiMVVMcleanArchitectureHilt" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/my_light_primary</item>
-        
-        <!-- Define a cor padrão do texto para botões como branco -->
-        <item name="android:textColor">@color/white</item>
+    <style name="Theme.Pokedex2990cleanArchitecure" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Cor da Toolbar e Botões -->
+        <item name="colorPrimary">@color/verde_agua_claro</item>
+        <item name="colorPrimaryVariant">@color/verde_agua_claro_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Cor de fundo das telas -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="Theme.PokedexApiMVVMcleanArchitectureHilt" parent="Base.Theme.PokedexApiMVVMcleanArchitectureHilt" />
 
 </resources>

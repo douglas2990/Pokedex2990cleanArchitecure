@@ -20,91 +20,74 @@ import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.PokemonSpeciesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 @AndroidEntryPoint
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
-
     private val detailPokemonViewModel by viewModels<DetailPokemonViewModel>()
     private val pokemonSpecieViewModel by viewModels<PokemonSpeciesViewModel>()
-
     var gridLayoutManager: GridLayoutManager? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding !!
+
+    private var isShiny = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     @SuppressLint("FragmentLiveDataObserve")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.recyclerViewEggGroup.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewBaseStatus.layoutManager = LinearLayoutManager(context)
-
-        presentLoading(false)
-        //binding.progressBarHp.progress = 200
         presentLoading(true)
         viewModelDetail()
         viewModelSpecies()
-        //viewModelSpeciesEggGroup()
-
-
-
-
-
-
-
-
     }
 
     fun viewModelDetail(){
-       // var gridLayoutManager: GridLayoutManager? = null
-
         detailPokemonViewModel.detalhePokemon.observe(viewLifecycleOwner){ resultPokemon->
             presentLoading(false)
             binding.detailNamePokemon.text = "#" + resultPokemon?.id.toString().padStart(3,'0') + " " + resultPokemon?.nome.toString()
-            binding.detailPokemon.load(resultPokemon?.esprites?.other?.home?.front_default)
-            gridLayoutManager = GridLayoutManager(
-                context,
-                resultPokemon!!.tipos.size
-            )
+            
+            // Carregamento inicial da imagem
+            val normalUrl = resultPokemon?.esprites?.other?.home?.front_default
+            val shinyUrl = resultPokemon?.esprites?.other?.home?.front_shiny
+            
+            binding.detailPokemon.load(normalUrl)
+
+            // Lógica de clique na imagem para alternar Shiny
+            binding.detailPokemon.setOnClickListener {
+                isShiny = !isShiny
+                if (isShiny && shinyUrl != null) {
+                    binding.detailPokemon.load(shinyUrl)
+                } else {
+                    binding.detailPokemon.load(normalUrl)
+                }
+            }
+
+            gridLayoutManager = GridLayoutManager(context, resultPokemon!!.tipos.size)
             binding.recyclerView.layoutManager = gridLayoutManager
             binding.recyclerView.adapter = ListTypeAdapter(resultPokemon.tipos)
 
             binding.detailNamePokemon.setOnClickListener {
-                //findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
                 findNavController().navigate(R.id.action_SecondFragment_to_FourthFragment)
             }
             binding.recyclerViewBaseStatus.adapter = ListBaseStatsAdapter(resultPokemon.status)
         }
-
     }
 
     private fun viewModelSpecies(){
         pokemonSpecieViewModel.detalhePokemon.observe(viewLifecycleOwner){result->
             presentLoading(false)
-            gridLayoutManager = GridLayoutManager(
-                requireActivity().applicationContext,
-                        //context,
-                result?.grupoOvos?.size!!
-            )
+            gridLayoutManager = GridLayoutManager(requireActivity().applicationContext, result?.grupoOvos?.size!!)
             binding.textView3.text = "EGG GROUP"
             binding.recyclerViewEggGroup.layoutManager = gridLayoutManager
             binding.recyclerViewEggGroup.adapter = EggGroupAdapter(result.grupoOvos)
-
         }
     }
 
@@ -115,15 +98,12 @@ class SecondFragment : Fragment() {
             binding.detaisShimmerType.showShimmer(true)
             binding.detaisShimmerEggGroup.showShimmer(true)
             binding.detaisBaseStatus.showShimmer(true)
-
-        }else {
+        } else {
             binding.detailsShimmerPokemon.hideShimmer()
             binding.detaisShimmerNamePokemon.hideShimmer()
             binding.detaisShimmerType.hideShimmer()
             binding.detaisShimmerEggGroup.hideShimmer()
             binding.detaisBaseStatus.hideShimmer()
-
-
         }
     }
 
@@ -132,14 +112,9 @@ class SecondFragment : Fragment() {
         _binding = null
     }
 
-
     override fun onStart() {
         super.onStart()
         detailPokemonViewModel.recuperarPokemon(arguments?.getString("id","") ?: "")
         pokemonSpecieViewModel.recuperarPokemon(arguments?.getString("id","") ?: "")
-
-
     }
-
-
 }

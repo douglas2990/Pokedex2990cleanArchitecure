@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PokedexApiMVVMcleanArchitectureHilt" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <item name="colorPrimary">@color/my_dark_primary</item>
+    <style name="Theme.Pokedex2990cleanArchitecure" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Cor da Toolbar e Botões no modo escuro -->
+        <item name="colorPrimary">@color/verde_agua_escuro</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Cor de fundo das telas no modo escuro -->
+        <item name="android:windowBackground">#121212</item>
     </style>
-
-
 </resources>

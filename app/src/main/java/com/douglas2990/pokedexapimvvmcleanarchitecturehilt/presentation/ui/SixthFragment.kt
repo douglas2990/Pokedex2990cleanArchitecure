@@ -26,6 +26,8 @@ class SixthFragment : Fragment() {
     private val detailPokemonViewModel by viewModels<DetailPokemonViewModel>()
     private val pokemonSpecieViewModel by viewModels<PokemonSpeciesViewModel>()
 
+    private var isShiny = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,7 +58,20 @@ class SixthFragment : Fragment() {
                 presentLoading(false)
                 
                 binding.detailNamePokemon.text = "#${pokemon.id.toString().padStart(3, '0')} ${pokemon.nome.uppercase()}"
-                binding.detailPokemon.load(pokemon.esprites.other.home.front_default)
+                
+                val normalUrl = pokemon.esprites.other.home.front_default
+                val shinyUrl = pokemon.esprites.other.home.front_shiny
+                
+                binding.detailPokemon.load(normalUrl)
+
+                binding.detailPokemon.setOnClickListener {
+                    isShiny = !isShiny
+                    if (isShiny && shinyUrl != null) {
+                        binding.detailPokemon.load(shinyUrl)
+                    } else {
+                        binding.detailPokemon.load(normalUrl)
+                    }
+                }
                 
                 // Types
                 binding.recyclerViewTypes.adapter = ListTypeAdapter(pokemon.tipos)

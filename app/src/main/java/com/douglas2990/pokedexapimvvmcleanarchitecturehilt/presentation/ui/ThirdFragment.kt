@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -15,7 +16,7 @@ import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.R
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.databinding.FragmentThirdListBinding
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.PokemonAdapterTypesDetail
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.PokemonInterface
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.PokemonListDetailViewModel
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.ThirdFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,11 +25,12 @@ class ThirdFragment : Fragment() {
     private var _binding: FragmentThirdListBinding? = null
     private val binding get() = _binding!!
 
-    private val pokemonListDetailViewModel by viewModels<PokemonListDetailViewModel>()
+    // Usando agora a ViewModel dedicada apenas para esta Fragment
+    private val viewModel by viewModels<ThirdFragmentViewModel>()
+    private var adapter: PokemonAdapterTypesDetail? = null
 
     private val pokemonListener = object : PokemonInterface {
         override fun onClick(pokemonId: String) {
-            // Navegando para a SixthFragment que criamos anteriormente
             findNavController().navigate(
                 R.id.action_ThirdFragment_to_SixthFragment,
                 bundleOf("id" to pokemonId)
@@ -49,20 +51,37 @@ class ThirdFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerThird.layoutManager = LinearLayoutManager(context)
-        initPokemonListDetailViewModel()
+        setupObservers()
+        setupSearchView()
     }
 
-    private fun initPokemonListDetailViewModel() {
-        binding.thirdProgress.isVisible = true
-        pokemonListDetailViewModel.listaDetailPokemon.observe(viewLifecycleOwner) { resultPokemon ->
-            binding.thirdProgress.isVisible = false
-            // Usando o adapter que já existe e mostra Imagem, Nome, Número e Tipos
-            binding.recyclerThird.adapter = PokemonAdapterTypesDetail(
-                resultPokemon,
-                requireContext(),
-                pokemonListener
-            )
+    private fun setupObservers() {
+        // Observa a lista de Pokémons filtrada ou completa vinda da ViewModel
+        viewModel.listaPokemon.observe(viewLifecycleOwner) { resultPokemon ->
+            if (adapter == null) {
+                adapter = PokemonAdapterTypesDetail(resultPokemon, requireContext(), pokemonListener)
+                binding.recyclerThird.adapter = adapter
+            } else {
+                adapter?.updateList(resultPokemon)
+            }
         }
+
+        // Observa o estado de carregamento
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            binding.thirdProgress.isVisible = isLoading
+        }
+    }
+
+    private fun setupSearchView() {
+        binding.searchPokemonThird.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Apenas repassa o texto para a ViewModel tratar
+                viewModel.filterList(newText)
+                return true
+            }
+        })
     }
 
     override fun onDestroyView() {

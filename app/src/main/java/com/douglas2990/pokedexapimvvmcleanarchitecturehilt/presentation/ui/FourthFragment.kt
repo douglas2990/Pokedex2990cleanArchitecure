@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.databinding.FragmentFourthBinding
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.EggGroupAdapter
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.ListBaseStatsAdapter
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.ListTypeAdapter
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.detail.DetailPokemonViewModel
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.PokemonSpeciesViewModel
@@ -25,6 +24,8 @@ class FourthFragment : Fragment() {
 
     private val detailPokemonViewModel by viewModels<DetailPokemonViewModel>()
     private val pokemonSpecieViewModel by viewModels<PokemonSpeciesViewModel>()
+
+    private var isShiny = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +44,6 @@ class FourthFragment : Fragment() {
 
     private fun setupRecyclerViews() {
         binding.recyclerViewEggGroup.layoutManager = LinearLayoutManager(context)
-        //binding.recyclerViewBaseStatus.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewTypes.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
@@ -56,13 +56,23 @@ class FourthFragment : Fragment() {
                 presentLoading(false)
                 
                 binding.detailNamePokemon.text = "#${pokemon.id.toString().padStart(3, '0')} ${pokemon.nome.uppercase()}"
-                binding.detailPokemon.load(pokemon.esprites.other.home.front_default)
+                
+                val normalUrl = pokemon.esprites.other.home.front_default
+                val shinyUrl = pokemon.esprites.other.home.front_shiny
+                
+                binding.detailPokemon.load(normalUrl)
+
+                binding.detailPokemon.setOnClickListener {
+                    isShiny = !isShiny
+                    if (isShiny && shinyUrl != null) {
+                        binding.detailPokemon.load(shinyUrl)
+                    } else {
+                        binding.detailPokemon.load(normalUrl)
+                    }
+                }
                 
                 // Types
                 binding.recyclerViewTypes.adapter = ListTypeAdapter(pokemon.tipos)
-
-                // Stats List (Optional, since we have individual progress bars)
-               // binding.recyclerViewBaseStatus.adapter = ListBaseStatsAdapter(pokemon.status)
 
                 // Update individual ProgressBars
                 pokemon.status.forEach { stat ->
@@ -109,13 +119,11 @@ class FourthFragment : Fragment() {
             binding.detaisShimmerNamePokemon.showShimmer(true)
             binding.detaisShimmerType.showShimmer(true)
             binding.detaisShimmerEggGroup.showShimmer(true)
-
         } else {
             binding.detailsShimmerPokemon.hideShimmer()
             binding.detaisShimmerNamePokemon.hideShimmer()
             binding.detaisShimmerType.hideShimmer()
             binding.detaisShimmerEggGroup.hideShimmer()
-
         }
     }
 

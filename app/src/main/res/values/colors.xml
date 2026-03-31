@@ -4,4 +4,17 @@
     <color name="white">#FFFFFFFF</color>
     <color name="my_light_primary">#009688</color>
     <color name="my_dark_primary">#009688</color>
+
+
+
+    <!-- Verde Água para Modo Claro -->
+    <color name="verde_agua_claro">#4DB6AC</color> <!-- Teal 300 -->
+    <color name="verde_agua_claro_dark">#00897B</color> <!-- Teal 600 (para contraste) -->
+
+    <!-- Verde Água para Modo Escuro -->
+    <color name="verde_agua_escuro">#004D40</color> <!-- Teal 900 -->
+    <color name="verde_agua_escuro_light">#00796B</color> <!-- Teal 700 -->
+
+
+
 </resources>

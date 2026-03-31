@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_second"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Info" />
+    <item
+        android:id="@+id/nav_fourth"
+        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:title="Stats" />
+    <item
+        android:id="@+id/nav_sixth"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Dynamic" />
+    <item
+        android:id="@+id/nav_eight"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Moves" />
+</menu>

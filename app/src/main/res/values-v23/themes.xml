@@ -1,9 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.Pokedex2990cleanArchitecure" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Cor da Toolbar e Botões -->
+        <item name="colorPrimary">@color/verde_agua_claro</item>
+        <item name="colorPrimaryVariant">@color/verde_agua_claro_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
 
-    <style name="Theme.PokedexApiMVVMcleanArchitectureHilt" parent="Base.Theme.PokedexApiMVVMcleanArchitectureHilt">
-        <!-- Transparent system bars for edge-to-edge. -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+        <!-- Cor de fundo das telas -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
+
 </resources>

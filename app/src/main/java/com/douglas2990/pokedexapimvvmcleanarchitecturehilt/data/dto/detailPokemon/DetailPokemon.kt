@@ -2,6 +2,7 @@ package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.detailPokem
 
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.detalhe.DetalhePokemon
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.detalhe.DetalhePokemon1
+import com.google.gson.annotations.SerializedName
 
 data class DetailPokemon(
     val abilities: List<Ability>,
@@ -9,20 +10,26 @@ data class DetailPokemon(
     val cries: Cries,
     val forms: List<Form>,
     val game_indices: List<GameIndice>,
+    @SerializedName("height")
     val height: Int,
     val held_items: List<Any>,
+    @SerializedName("id")
     val id: Int,
     val is_default: Boolean,
     val location_area_encounters: String,
     val moves: List<Move>,
+    @SerializedName("name")
     val name: String,
     val order: Int,
     val past_abilities: List<Any>,
     val past_types: List<Any>,
     val species: Species,
     val sprites: Sprites,
+    @SerializedName("stats")
     val stats: List<Stat>,
+    @SerializedName("types")
     val types: List<Type>,
+    @SerializedName("weight")
     val weight: Int
 )
 fun DetailPokemon.toDetailPokemon() : DetalhePokemon {
