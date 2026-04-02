@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_menuForTestFragment_to_SeventhFragment"
             app:destination="@id/SeventhFragment" />
+        <action
+            android:id="@+id/action_menuForTestFragment_to_NinethFragment"
+            app:destination="@id/NinethFragment" />
     </fragment>
     
     <fragment
@@ -169,6 +172,20 @@
         <action
             android:id="@+id/action_SeventhFragment_to_TenthFragment"
             app:destination="@id/TenthFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/NinethFragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.NinethFragment"
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_seventh">
+        <action
+            android:id="@+id/action_NinethFragment_to_TenthFragment"
+            app:destination="@id/TenthFragment" />
+
+        <action
+            android:id="@+id/action_NinethFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 
 </navigation>

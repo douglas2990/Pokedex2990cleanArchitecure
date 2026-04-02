@@ -22,16 +22,16 @@ class DetailPokemon1RepositoryImpl @Inject constructor(
                 if( listResult != null ){
 
                     return listResult.map { result ->
-                                val respostaPokemonDetail =
-                                    pokemonAPI.pokemonDetail(result.name)
-                                val pokemonDetail = respostaPokemonDetail.body()!!
+                        val respostaPokemonDetail =
+                            pokemonAPI.pokemonDetail(result.name)
+                        val pokemonDetail = respostaPokemonDetail.body()!!
 
-                                DetalhePokemon1(
-                                    id = pokemonDetail.id,
-                                    nome = pokemonDetail.name,
-                                    esprites = pokemonDetail.sprites,
-                                    tipos = pokemonDetail.types
-                                )
+                        DetalhePokemon1(
+                            id = pokemonDetail.id,
+                            nome = pokemonDetail.name,
+                            esprites = pokemonDetail.sprites,
+                            tipos = pokemonDetail.types
+                        )
 
                     }
 

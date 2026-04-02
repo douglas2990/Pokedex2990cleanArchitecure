@@ -49,6 +49,9 @@ class MenuForTestFragment : Fragment() {
         binding.btnForSeventhFragment.setOnClickListener {
             findNavController().navigate(R.id.action_menuForTestFragment_to_SeventhFragment)
         }
+        binding.btnForNinethFragment.setOnClickListener {
+            findNavController().navigate(R.id.action_menuForTestFragment_to_NinethFragment)
+        }
     }
 
     override fun onDestroyView() {

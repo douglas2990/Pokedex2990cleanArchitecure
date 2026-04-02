@@ -45,7 +45,9 @@ object AppModulo {
             context,
             AppDatabase::class.java,
             "pokedex_db"
-        ).build()
+        )
+        .fallbackToDestructiveMigration()
+        .build()
     }
 
     @Provides
@@ -68,8 +70,19 @@ object AppModulo {
 
     @Provides
     @Singleton
-    fun proverDetail1Respository(dummyAPI: DummyAPI): DetalhePokemon1Repository {
+    fun proverDetail1Respository(
+        dummyAPI: DummyAPI
+    ): DetalhePokemon1Repository {
         return DetailPokemon1RepositoryImpl(dummyAPI)
+    }
+
+    @Provides
+    @Singleton
+    fun proverDetalhePokemonPythonRepository(
+        dummyAPI: DummyAPI,
+        pokemonDao: PokemonDao
+    ): DetalhePokemonPythonRepository {
+        return DetalhePokemonPythonRepositoryImpl(dummyAPI, pokemonDao)
     }
 
     @Provides
@@ -98,5 +111,18 @@ object AppModulo {
     @Provides
     fun proverPokemonSpecieUseCase(pokemonSpecieRepository: PokemonSpecieRepository): GetPokemonSpecieUseCase {
         return GetPokemonSpecieUseCase(pokemonSpecieRepository)
+    }
+
+    @Provides
+    fun proverGetDetailPokemonPythonUseCase(repository: DetalhePokemonPythonRepository): GetDetailPokemonPythonUseCase {
+        return GetDetailPokemonPythonUseCase(repository)
+    }
+
+    @Provides
+    fun proverGetPokemonRoomUseCase(
+        pokemonDao: PokemonDao,
+        repository: DetalhePokemon1Repository
+    ): GetPokemonRoomUseCase {
+        return GetPokemonRoomUseCase(pokemonDao, repository)
     }
 }

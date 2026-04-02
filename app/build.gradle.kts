@@ -1,8 +1,14 @@
+//import com.chaquo.python.pythonVersionInfo
+
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.chaquopy)
+    //id("com.chaquo.python")
     alias(libs.plugins.kotlin.android)
+
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+
 }
 
 android {
@@ -11,13 +17,38 @@ android {
 
     defaultConfig {
         applicationId = "com.douglas2990.pokedexapimvvmcleanarchitecturehilt"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
+        ndk {
+            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+        }
+
+
+        // O BLOCO PYTHON DEVE FICAR AQUI DENTRO
+
+
+        // Sintaxe alternativa caso a simples continue falhando
+
+
     }
+
+    chaquopy {
+        defaultConfig {
+            version = "3.11"
+            pip {
+                install("requests")
+            }
+        }
+    }
+
+
+
 
     buildTypes {
         release {

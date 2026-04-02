@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.detalhe.DetalhePokemon1
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.usecase.GetDetailPokemon1UseCase
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.usecase.GetPokemonRoomUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ThirdFragmentViewModel @Inject constructor(
-    private val getDetailPokemon1UseCase: GetDetailPokemon1UseCase
+    private val getPokemonRoomUseCase: GetPokemonRoomUseCase
 ) : ViewModel() {
 
     private val _listaPokemon = MutableLiveData<List<DetalhePokemon1>>()
@@ -24,32 +24,14 @@ class ThirdFragmentViewModel @Inject constructor(
     private var fullList: List<DetalhePokemon1> = emptyList()
 
     private val typeTranslations = mapOf(
-        "fogo" to "fire",
-        "água" to "water",
-        "agua" to "water",
-        "planta" to "grass",
-        "grama" to "grass",
-        "elétrico" to "electric",
-        "eletrico" to "electric",
-        "gelo" to "ice",
-        "lutador" to "fighting",
-        "veneno" to "poison",
-        "venenoso" to "poison",
-        "terra" to "ground",
-        "voador" to "flying",
-        "psíquico" to "psychic",
-        "psiquico" to "psychic",
-        "inseto" to "bug",
-        "pedra" to "rock",
-        "rocha" to "rock",
-        "fantasma" to "ghost",
-        "dragão" to "dragon",
-        "dragao" to "dragon",
-        "sombrio" to "dark",
-        "trevas" to "dark",
-        "aço" to "steel",
-        "aco" to "steel",
-        "fada" to "fairy",
+        "fogo" to "fire", "água" to "water", "agua" to "water", "planta" to "grass",
+        "grama" to "grass", "elétrico" to "electric", "eletrico" to "electric",
+        "gelo" to "ice", "lutador" to "fighting", "veneno" to "poison",
+        "venenoso" to "poison", "terra" to "ground", "voador" to "flying",
+        "psíquico" to "psychic", "psiquico" to "psychic", "inseto" to "bug",
+        "pedra" to "rock", "rocha" to "rock", "fantasma" to "ghost",
+        "dragão" to "dragon", "dragao" to "dragon", "sombrio" to "dark",
+        "trevas" to "dark", "aço" to "steel", "aco" to "steel", "fada" to "fairy",
         "normal" to "normal"
     )
 
@@ -60,7 +42,8 @@ class ThirdFragmentViewModel @Inject constructor(
     fun recuperarResultado() {
         _loading.value = true
         viewModelScope.launch {
-            val result = getDetailPokemon1UseCase()
+            // Agora usamos o UseCase dedicado para o Room (Cache)
+            val result = getPokemonRoomUseCase()
             fullList = result
             _listaPokemon.value = result
             _loading.value = false
