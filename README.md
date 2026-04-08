@@ -49,6 +49,6 @@ O projeto conta com um script **Python** integrado via **Chaquopy**, utilizado d
 
 |                                                         |                                           |
 |:-------------------------------------------------------:|:-----------------------------------------:|
-| <img src="screenshots/Screenshot1 (1).jpg" width="250"> |<img src="screenshots/Screenshot1 (4).jpg" width="250" 
-| <img src="screenshots/Screenshot1 (2).jpg" width="250"> |<img src="screenshots/Screenshot1 (5).jpg" width="250" 
-| <img src="screenshots/Screenshot1 (3).jpg" width="250"> |<img src="screenshots/Screenshot1 (6).jpg" width="250" 
+| <img src="screenshots/Screenshot1 (1).jpg" width="250"> |<img src="screenshots/Screenshot1 (4).jpg" width="250"> 
+| <img src="screenshots/Screenshot1 (2).jpg" width="250"> |<img src="screenshots/Screenshot1 (5).jpg" width="250"> 
+| <img src="screenshots/Screenshot1 (3).jpg" width="250"> |<img src="screenshots/Screenshot1 (6).jpg" width="250"> 
