@@ -57,8 +57,8 @@ class FourthFragment : Fragment() {
                 
                 binding.detailNamePokemon.text = "#${pokemon.id.toString().padStart(3, '0')} ${pokemon.nome.uppercase()}"
                 
-                val normalUrl = pokemon.esprites.other.home.front_default
-                val shinyUrl = pokemon.esprites.other.home.front_shiny
+                val normalUrl = pokemon.esprites.other?.home?.front_default
+                val shinyUrl = pokemon.esprites.other?.home?.front_shiny
                 
                 binding.detailPokemon.load(normalUrl)
 

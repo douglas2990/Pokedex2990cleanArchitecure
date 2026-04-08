@@ -67,4 +67,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_for_seventhFragment" />
 
+    <Button
+        android:id="@+id/btn_for_generation3Fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Generation 3 (Hoenn)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_for_ninethFragment" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

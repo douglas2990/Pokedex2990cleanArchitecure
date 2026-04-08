@@ -51,7 +51,7 @@ class ListPokemonDetailAdapter (private val list: List<DetalhePokemon1>,
          */
 
         Glide.with(holder.imgViewPokemon)
-            .load(pokemon.esprites.other.home.front_default)
+            .load(pokemon.esprites.other?.home?.front_default)
             .into(holder.imgViewPokemon)
 
     }

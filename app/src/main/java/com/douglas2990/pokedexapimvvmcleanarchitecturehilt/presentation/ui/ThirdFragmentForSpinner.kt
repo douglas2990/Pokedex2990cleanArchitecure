@@ -75,7 +75,7 @@ class ThirdFragmentForSpinner : Fragment() {
                         val pokemonSelecionado = resultPokemon[position]
                         
                         binding.detailNamePokemon.text = "#${pokemonSelecionado.id.toString().padStart(3, '0')} ${pokemonSelecionado.nome.uppercase()}"
-                        binding.detailPokemon.load(pokemonSelecionado.esprites.other.home.front_default)
+                        binding.detailPokemon.load(pokemonSelecionado.esprites.other?.home?.front_default)
                         binding.recyclerViewTypes.adapter = ListTypeAdapter(pokemonSelecionado.tipos)
                         
                         detailPokemonViewModel.recuperarPokemon(pokemonSelecionado.id.toString())

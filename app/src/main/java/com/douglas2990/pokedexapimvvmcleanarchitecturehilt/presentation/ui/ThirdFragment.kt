@@ -25,7 +25,6 @@ class ThirdFragment : Fragment() {
     private var _binding: FragmentThirdListBinding? = null
     private val binding get() = _binding!!
 
-    // Usando agora a ViewModel dedicada apenas para esta Fragment
     private val viewModel by viewModels<ThirdFragmentViewModel>()
     private var adapter: PokemonAdapterTypesDetail? = null
 
@@ -56,17 +55,17 @@ class ThirdFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        // Observa a lista de Pokémons filtrada ou completa vinda da ViewModel
         viewModel.listaPokemon.observe(viewLifecycleOwner) { resultPokemon ->
             if (adapter == null) {
                 adapter = PokemonAdapterTypesDetail(resultPokemon, requireContext(), pokemonListener)
-                binding.recyclerThird.adapter = adapter
             } else {
                 adapter?.updateList(resultPokemon)
             }
+            // Importante: Sempre reatribuir o adapter ao RecyclerView, 
+            // pois a View foi recriada ao voltar da tela de detalhes
+            binding.recyclerThird.adapter = adapter
         }
 
-        // Observa o estado de carregamento
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             binding.thirdProgress.isVisible = isLoading
         }
@@ -77,7 +76,6 @@ class ThirdFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Apenas repassa o texto para a ViewModel tratar
                 viewModel.filterList(newText)
                 return true
             }

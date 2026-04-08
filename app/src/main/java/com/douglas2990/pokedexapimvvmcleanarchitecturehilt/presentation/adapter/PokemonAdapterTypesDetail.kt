@@ -49,7 +49,7 @@ class PokemonAdapterTypesDetail(private var list: List<DetalhePokemon1>,
             listenner?.onClick(pokemonId)
         }
 
-        holder.imgViewPokemon.load(pokemon.esprites.other.home.front_default)
+        holder.imgViewPokemon.load(pokemon.esprites.other?.home?.front_default)
 
         holder.recyclerView.layoutManager = GridLayoutManager(
             context.applicationContext,

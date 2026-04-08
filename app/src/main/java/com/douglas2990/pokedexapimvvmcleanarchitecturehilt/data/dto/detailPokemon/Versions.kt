@@ -1,12 +1,22 @@
 package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.detailPokemon
 
+import com.google.gson.annotations.SerializedName
+
 data class Versions(
-    val generation_i: GenerationI,
-    val generation_ii: GenerationIi,
-    val generation_iii: GenerationIii,
-    val generation_iv: GenerationIv,
-    val generation_v: GenerationV,
-    val generation_vi: GenerationVi,
-    val generation_vii: GenerationVii,
-    val generation_viii: GenerationViii
+    @SerializedName("generation-i")
+    val generationI: GenerationI,
+    @SerializedName("generation-ii")
+    val generationII: GenerationIi,
+    @SerializedName("generation-iii")
+    val generationIII: GenerationIii,
+    @SerializedName("generation-iv")
+    val generationIV: GenerationIv,
+    @SerializedName("generation-v")
+    val generationV: GenerationV,
+    @SerializedName("generation-vi")
+    val generationVI: GenerationVi,
+    @SerializedName("generation-vii")
+    val generationVII: GenerationVii,
+    @SerializedName("generation-viii")
+    val generationVIII: GenerationViii
 )

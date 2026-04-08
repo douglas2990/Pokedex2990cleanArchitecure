@@ -43,7 +43,7 @@ class PokemonAdapterPython(
             listener?.onClick(pokemonId)
         }
 
-        holder.binding.imageView.load(pokemon.esprites.other.home.front_default)
+        holder.binding.imageView.load(pokemon.esprites.other?.home?.front_default)
 
         holder.binding.recyclerView.layoutManager = GridLayoutManager(
             context.applicationContext,

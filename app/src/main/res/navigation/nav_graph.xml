@@ -3,41 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/menuForTestFragment">
+    app:startDestination="@id/FirstFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_FourthFragment"
-            app:destination="@id/FourthFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_SixthFragment"
-            app:destination="@id/SixthFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_ThirdFragment"
-            app:destination="@id/ThirdFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_SplashFragment"
-            app:destination="@id/SplashFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_EightFragment"
-            app:destination="@id/EightFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_FifthFragment"
-            app:destination="@id/FifthFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_menuForTestFragment"
-            app:destination="@id/menuForTestFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_SeventhFragment"
-            app:destination="@id/SeventhFragment" />
+        <action android:id="@+id/action_FirstFragment_to_SecondFragment" app:destination="@id/SecondFragment" />
+        <action android:id="@+id/action_FirstFragment_to_SixthFragment" app:destination="@id/SixthFragment" />
+        <action android:id="@+id/action_FirstFragment_to_SplashFragment" app:destination="@id/SplashFragment" />
+        <action android:id="@+id/action_FirstFragment_to_FifthFragment" app:destination="@id/FifthFragment" />
+        <action android:id="@+id/action_FirstFragment_to_menuForTestFragment" app:destination="@id/menuForTestFragment" />
+        <action android:id="@+id/action_FirstFragment_to_SeventhFragment" app:destination="@id/SeventhFragment" />
+        <action android:id="@+id/action_FirstFragment_to_NinethFragment" app:destination="@id/NinethFragment" />
     </fragment>
 
     <fragment
@@ -45,34 +24,64 @@
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.MenuForTestFragment"
         android:label="Menu For Test"
         tools:layout="@layout/fragment_menu_for_test">
+        <action android:id="@+id/action_menuForTestFragment_to_FirstFragment" app:destination="@id/FirstFragment" />
+        <action android:id="@+id/action_menuForTestFragment_to_ThirdFragment" app:destination="@id/ThirdFragment" />
+        <action android:id="@+id/action_menuForTestFragment_to_SplashFragment" app:destination="@id/SplashFragment" />
+        <action android:id="@+id/action_menuForTestFragment_to_FifthFragment" app:destination="@id/FifthFragment" />
+        <action android:id="@+id/action_menuForTestFragment_to_SeventhFragment" app:destination="@id/SeventhFragment" />
+        <action android:id="@+id/action_menuForTestFragment_to_NinethFragment" app:destination="@id/NinethFragment" />
+        <action android:id="@+id/action_menuForTestFragment_to_Generation3OptionsFragment" app:destination="@id/Generation3OptionsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Generation3OptionsFragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3OptionsFragment"
+        android:label="Opções Geração III"
+        tools:layout="@layout/fragment_generation3_options">
         <action
-            android:id="@+id/action_menuForTestFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_Generation3OptionsFragment_to_Generation3Fragment"
+            app:destination="@id/Generation3Fragment" />
         <action
-            android:id="@+id/action_menuForTestFragment_to_ThirdFragment"
-            app:destination="@id/ThirdFragment" />
-        <action
-            android:id="@+id/action_menuForTestFragment_to_SplashFragment"
-            app:destination="@id/SplashFragment" />
-        <action
-            android:id="@+id/action_menuForTestFragment_to_FifthFragment"
-            app:destination="@id/FifthFragment" />
-        <action
-            android:id="@+id/action_menuForTestFragment_to_SeventhFragment"
-            app:destination="@id/SeventhFragment" />
-        <action
-            android:id="@+id/action_menuForTestFragment_to_NinethFragment"
-            app:destination="@id/NinethFragment" />
+            android:id="@+id/action_Generation3OptionsFragment_to_Generation3MovesFragment"
+            app:destination="@id/Generation3MovesFragment" />
     </fragment>
     
+    <fragment
+        android:id="@+id/Generation3Fragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3Fragment"
+        android:label="Geração III - Hoenn"
+        tools:layout="@layout/fragment_generation3">
+        <argument
+            android:name="listType"
+            android:defaultValue="pokemon"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_Generation3Fragment_to_Generation3PokemonDetailFragment"
+            app:destination="@id/Generation3PokemonDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Generation3PokemonDetailFragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3PokemonDetailFragment"
+        android:label="Detalhes GBA"
+        tools:layout="@layout/fragment_generation3_pokemon_detail">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/Generation3MovesFragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3MovesFragment"
+        android:label="Moves Geração III"
+        tools:layout="@layout/fragment_generation3_moves" />
+
     <fragment
         android:id="@+id/FifthFragment"
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.FifthFragment"
         android:label="List for Tabs"
         tools:layout="@layout/fragment_fifth">
-        <action
-            android:id="@+id/action_FifthFragment_to_TenthFragment"
-            app:destination="@id/TenthFragment" />
+        <action android:id="@+id/action_FifthFragment_to_TenthFragment" app:destination="@id/TenthFragment" />
     </fragment>
 
     <fragment
@@ -90,9 +99,7 @@
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.SplashFragment"
         android:label="Splash"
         tools:layout="@layout/fragment_splash">
-        <action
-            android:id="@+id/action_SplashFragment_to_ThirdFragmentForSpinner"
-            app:destination="@id/ThirdFragmentForSpinner" />
+        <action android:id="@+id/action_SplashFragment_to_ThirdFragmentForSpinner" app:destination="@id/ThirdFragmentForSpinner" />
     </fragment>
 
     <fragment
@@ -100,15 +107,9 @@
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_FourthFragment"
-            app:destination="@id/FourthFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_ThirdFragmentForSpinner"
-            app:destination="@id/ThirdFragmentForSpinner" />
+        <action android:id="@+id/action_SecondFragment_to_FirstFragment" app:destination="@id/FirstFragment" />
+        <action android:id="@+id/action_SecondFragment_to_FourthFragment" app:destination="@id/FourthFragment" />
+        <action android:id="@+id/action_SecondFragment_to_ThirdFragmentForSpinner" app:destination="@id/ThirdFragmentForSpinner" />
         <argument
             android:name="id"
             app:argType="string" />
@@ -118,20 +119,15 @@
         android:id="@+id/ThirdFragmentForSpinner"
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.ThirdFragmentForSpinner"
         android:label="Spinner Fragment"
-        tools:layout="@layout/fragment_third_for_spinner">
-    </fragment>
+        tools:layout="@layout/fragment_third_for_spinner" />
 
     <fragment
         android:id="@+id/ThirdFragment"
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.ThirdFragment"
         android:label="Detailed List"
         tools:layout="@layout/fragment_third_list">
-        <action
-            android:id="@+id/action_ThirdFragment_to_SixthFragment"
-            app:destination="@id/SixthFragment" />
-        <action
-            android:id="@+id/action_ThirdFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+        <action android:id="@+id/action_ThirdFragment_to_SixthFragment" app:destination="@id/SixthFragment" />
+        <action android:id="@+id/action_ThirdFragment_to_FirstFragment" app:destination="@id/FirstFragment" />
     </fragment>
 
     <fragment
@@ -177,15 +173,9 @@
     <fragment
         android:id="@+id/NinethFragment"
         android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.NinethFragment"
-        android:label="Favoritos"
-        tools:layout="@layout/fragment_seventh">
-        <action
-            android:id="@+id/action_NinethFragment_to_TenthFragment"
-            app:destination="@id/TenthFragment" />
-
-        <action
-            android:id="@+id/action_NinethFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+        android:label="IA Pokemon"
+        tools:layout="@layout/fragment_nineth">
+        <action android:id="@+id/action_NinethFragment_to_SecondFragment" app:destination="@id/SecondFragment" />
     </fragment>
 
 </navigation>

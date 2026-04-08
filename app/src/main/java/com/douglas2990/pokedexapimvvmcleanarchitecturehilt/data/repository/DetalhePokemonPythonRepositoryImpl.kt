@@ -19,16 +19,18 @@ class DetalhePokemonPythonRepositoryImpl @Inject constructor(
 
     override suspend fun recuperarPokemonsPython(): List<DetalhePokemonPython> {
         try {
-            // 1. Tenta carregar do Cache primeiro
+            // 1. Tenta carregar do Cache
             val cache = pokemonDao.getPokemonPythonCache()
-            if (cache.isNotEmpty()) {
-                Log.i("PokemonPythonCache", "Carregando cache Python do Banco de Dados")
+            
+            // Se o cache tiver dados e for uma lista considerável (ex: > 151), retorna ele
+            if (cache.size > 151) {
+                Log.i("PokemonPythonCache", "Carregando cache COMPLETO (${cache.size}) do Banco de Dados")
                 return cache.map { it.toDomain() }
             }
 
-            // 2. Se vazio, busca na API
-            Log.i("PokemonPythonCache", "Cache vazio, baixando dados da PokéAPI...")
-            val resposta = pokemonAPI.getPokemon(151, 0) 
+            // 2. Se o cache estiver incompleto ou vazio, busca TODOS na API
+            Log.i("PokemonPythonCache", "Cache incompleto ou vazio, baixando lista completa da PokéAPI...")
+            val resposta = pokemonAPI.getPokemon(2000, 0) // Busca até 2000 Pokémon
 
             if (resposta.isSuccessful && resposta.body() != null) {
                 val listResult = resposta.body()?.results
@@ -46,7 +48,8 @@ class DetalhePokemonPythonRepositoryImpl @Inject constructor(
                         )
                     }
 
-                    // 3. Salva no Cache
+                    // 3. Limpa o cache antigo e salva o novo (completo)
+                    pokemonDao.clearPokemonPythonCache()
                     val entities = pokemonList.map { it.toEntity() }
                     pokemonDao.insertPokemonPythonCache(entities)
 

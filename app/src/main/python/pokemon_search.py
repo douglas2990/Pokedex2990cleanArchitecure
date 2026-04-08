@@ -1,11 +1,9 @@
 import re
 import json
 
-# Variável global para manter os dados na memória RAM do Python
 _CACHED_POKEMON = []
 
 def load_data(pokemon_list_json):
-    """Carrega os dados na memória uma única vez"""
     global _CACHED_POKEMON
     try:
         _CACHED_POKEMON = json.loads(pokemon_list_json)
@@ -14,11 +12,9 @@ def load_data(pokemon_list_json):
         return "ERROR"
 
 def get_all_cached():
-    """Retorna a lista completa instantaneamente da memória"""
     return json.dumps(_CACHED_POKEMON)
 
 def process_request(query):
-    """Processa a pesquisa usando a lista que já está na memória"""
     global _CACHED_POKEMON
     if not _CACHED_POKEMON:
         return json.dumps([])
@@ -26,20 +22,35 @@ def process_request(query):
     try:
         query = query.lower()
         
-        # 1. Extração de quantidade
+        # IA: Extração de Quantidade
         limit_match = re.search(r'(\d+)', query)
-        limit = int(limit_match.group(1)) if limit_match else 1000 # Default alto para mostrar tudo se não especificar
+        limit = int(limit_match.group(1)) if limit_match else 5
             
-        # 2. Mapeamento de Atributos (Sinônimos de IA)
-        stat_map = {"ataque": "attack", "defesa": "defense", "hp": "hp", "velocidade": "speed", "força": "attack", "vida": "hp"}
-        target_stat = None
-        for pt, en in stat_map.items():
-            if pt in query:
-                target_stat = en
+        # IA: Mapeamento de Atributos e Intenções (Sinônimos)
+        stat_map = {
+            "ataque": "attack", "attack": "attack", "força": "attack", "forte": "attack",
+            "defesa": "defense", "defense": "defense", "resistencia": "defense", "tanque": "defense",
+            "hp": "hp", "vida": "hp", "life": "hp", "aguentar": "hp",
+            "velocidade": "speed", "speed": "speed", "rapido": "speed", "veloz": "speed",
+            "especial ataque": "special-attack", "sp atk": "special-attack", "poder": "special-attack",
+            "especial defesa": "special-defense", "sp def": "special-defense"
+        }
+        
+        target_stat = "attack" # Default
+        for key, val in stat_map.items():
+            if key in query:
+                target_stat = val
                 break
                 
-        # 3. Mapeamento de Tipos
-        type_map = {"dragão": "dragon", "dragao": "dragon", "fogo": "fire", "água": "water", "agua": "water", "planta": "grass", "grama": "grass"}
+        # IA: Mapeamento de Tipos em Português
+        type_map = {
+            "dragão": "dragon", "dragao": "dragon", "fogo": "fire", "água": "water", "agua": "water",
+            "planta": "grass", "grama": "grass", "elétrico": "electric", "eletrico": "electric",
+            "gelo": "ice", "lutador": "fighting", "veneno": "poison", "terra": "ground",
+            "voador": "flying", "psíquico": "psychic", "psiquico": "psychic", "inseto": "bug",
+            "pedra": "rock", "fantasma": "ghost", "sombrio": "dark", "aço": "steel", "fada": "fairy"
+        }
+        
         target_type = None
         for pt, en in type_map.items():
             if pt in query:
@@ -50,25 +61,25 @@ def process_request(query):
         for p in _CACHED_POKEMON:
             # Filtro por tipo
             if target_type:
-                pokemon_types = [t['type']['name'] for t in p.get('tipos', [])]
-                if target_type not in pokemon_types:
+                p_types = [t['type']['name'] for t in p.get('tipos', [])]
+                if target_type not in p_types:
                     continue
             
-            # Valor do atributo para ordenação
-            stat_value = 0
-            if target_stat:
-                for s in p.get('status', []):
-                    if s.get('stat', {}).get('name') == target_stat:
-                        stat_value = s.get('base_stat', 0)
-                        break
+            # Valor do atributo
+            val = 0
+            for s in p.get('status', []):
+                if s['stat']['name'] == target_stat:
+                    val = s['base_stat']
+                    break
+            results.append({"val": val, "obj": p})
             
-            results.append({"val": stat_value, "obj": p})
+        # IA: Se a frase contém 'pior' ou 'fraco', inverte a ordem
+        reverse_order = True
+        if "pior" in query or "fraco" in query or "menos" in query:
+            reverse_order = False
             
-        # Se houver atributo, ordena. Se não, mantém a ordem original (ID)
-        if target_stat:
-            results.sort(key=lambda x: x['val'], reverse=True)
-        
+        results.sort(key=lambda x: x['val'], reverse=reverse_order)
         return json.dumps([item['obj'] for item in results[:limit]])
         
-    except Exception as e:
+    except:
         return json.dumps([])

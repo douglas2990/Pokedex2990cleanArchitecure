@@ -46,11 +46,17 @@ class MenuForTestFragment : Fragment() {
         binding.btnForFifthFragment.setOnClickListener {
             findNavController().navigate(R.id.action_menuForTestFragment_to_FifthFragment)
         }
+
         binding.btnForSeventhFragment.setOnClickListener {
             findNavController().navigate(R.id.action_menuForTestFragment_to_SeventhFragment)
         }
+
         binding.btnForNinethFragment.setOnClickListener {
             findNavController().navigate(R.id.action_menuForTestFragment_to_NinethFragment)
+        }
+
+        binding.btnForGeneration3Fragment.setOnClickListener {
+            findNavController().navigate(R.id.action_menuForTestFragment_to_Generation3OptionsFragment)
         }
     }
 

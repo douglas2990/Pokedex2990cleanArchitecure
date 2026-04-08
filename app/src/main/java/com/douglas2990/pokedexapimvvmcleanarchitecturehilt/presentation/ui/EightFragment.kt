@@ -49,8 +49,8 @@ class EightFragment : Fragment() {
             pokemon?.let {
                 binding.txtNomeEight.text = it.nome.uppercase()
                 
-                val normalUrl = it.esprites.other.home.front_default
-                val shinyUrl = it.esprites.other.home.front_shiny
+                val normalUrl = it.esprites.other?.home?.front_default
+                val shinyUrl = it.esprites.other?.home?.front_shiny
                 
                 binding.imgEight.load(normalUrl)
 

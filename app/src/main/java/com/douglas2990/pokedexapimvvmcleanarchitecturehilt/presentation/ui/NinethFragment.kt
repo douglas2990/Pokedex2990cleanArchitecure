@@ -64,10 +64,11 @@ class NinethFragment : Fragment() {
         viewModel.pokemonResultados.observe(viewLifecycleOwner) { resultList ->
             if (adapter == null) {
                 adapter = PokemonAdapterPython(resultList, requireContext(), pokemonListener)
-                binding.recyclerPython.adapter = adapter
             } else {
                 adapter?.updateList(resultList)
             }
+            // Garante que o adapter seja setado toda vez que a View for recriada
+            binding.recyclerPython.adapter = adapter
         }
 
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
@@ -84,7 +85,13 @@ class NinethFragment : Fragment() {
                 return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Ativa a pesquisa em tempo real conforme você digita
+                if (!newText.isNullOrBlank() && newText.length > 3) {
+                    viewModel.searchWithPython(newText)
+                }
+                return true
+            }
         })
     }
 

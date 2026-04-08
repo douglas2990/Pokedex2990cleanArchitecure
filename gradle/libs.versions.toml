@@ -14,6 +14,8 @@ glide = "4.16.0"
 coil = "2.6.0"
 fresco = "2.5.0"
 chaquopy = "16.0.0"
+navigationFragmentKtx = "2.9.7"
+navigationUiKtx = "2.9.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +34,8 @@ converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ve
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 fresco = { module = "com.facebook.fresco:fresco", version.ref = "fresco" }
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

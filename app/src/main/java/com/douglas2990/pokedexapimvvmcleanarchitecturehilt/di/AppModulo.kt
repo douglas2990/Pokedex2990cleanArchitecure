@@ -6,8 +6,14 @@ import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.local.dao.Pokemo
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.local.database.AppDatabase
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.remote.DummyAPI
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.repository.*
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.repository.gen_iii.Generation3RepositoryImpl
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.repository.gen_iii.PokemonDetailGen3RepositoryImpl
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.respository.*
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.respository.gen_iii.Generation3Repository
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.respository.gen_iii.PokemonDetailGen3Repository
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.usecase.*
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.usecase.gen_iii.GetGeneration3UseCase
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.usecase.gen_iii.GetPokemonDetailGen3UseCase
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.util.Constantes.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -97,6 +103,18 @@ object AppModulo {
         return PokemonFavoritosRepositoryImpl(pokemonDao)
     }
 
+    @Provides
+    @Singleton
+    fun proverGeneration3Repository(dummyAPI: DummyAPI): Generation3Repository {
+        return Generation3RepositoryImpl(dummyAPI)
+    }
+
+    @Provides
+    @Singleton
+    fun proverPokemonDetailGen3Repository(dummyAPI: DummyAPI): PokemonDetailGen3Repository {
+        return PokemonDetailGen3RepositoryImpl(dummyAPI)
+    }
+
     // UseCases
     @Provides
     fun proverResultUseCase(resultRepository: ResultRepository): GetResultUseCase {
@@ -124,5 +142,15 @@ object AppModulo {
         repository: DetalhePokemon1Repository
     ): GetPokemonRoomUseCase {
         return GetPokemonRoomUseCase(pokemonDao, repository)
+    }
+
+    @Provides
+    fun proverGetGeneration3UseCase(repository: Generation3Repository): GetGeneration3UseCase {
+        return GetGeneration3UseCase(repository)
+    }
+
+    @Provides
+    fun proverGetPokemonDetailGen3UseCase(repository: PokemonDetailGen3Repository): GetPokemonDetailGen3UseCase {
+        return GetPokemonDetailGen3UseCase(repository)
     }
 }
