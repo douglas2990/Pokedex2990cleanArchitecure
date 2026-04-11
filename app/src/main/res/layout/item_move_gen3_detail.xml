@@ -14,50 +14,61 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
+        <!-- Lado Esquerdo: Level ou Método -->
         <TextView
-            android:id="@+id/txtMoveLevel"
-            android:layout_width="35dp"
+            android:id="@+id/txtLearnInfo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_type_badge"
-            android:backgroundTint="#424242"
-            android:gravity="center"
+            android:background="@drawable/bg_type_round"
+            android:backgroundTint="@color/my_light_primary"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="10" />
+            tools:text="Lvl 10" />
 
+        <!-- Centro: Nome do Golpe -->
         <TextView
-            android:id="@+id/txtMoveName"
+            android:id="@+id/txtMoveNameDetail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
-            android:textColor="#212121"
-            android:textSize="14sp"
+            android:layout_marginEnd="12dp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtMoveType"
-            app:layout_constraintStart_toEndOf="@id/txtMoveLevel"
+            app:layout_constraintEnd_toStartOf="@+id/cardMoveType"
+            app:layout_constraintStart_toEndOf="@+id/txtLearnInfo"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="EMBER" />
 
-        <TextView
-            android:id="@+id/txtMoveType"
-            android:layout_width="80dp"
+        <!-- Direita: Tipo do Golpe -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMoveType"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_type_badge"
-            android:gravity="center"
-            android:paddingVertical="4dp"
-            android:textColor="#FFFFFF"
-            android:textSize="11sp"
-            android:textStyle="bold"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="WATER" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtMoveType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:backgroundTint="#F08030"
+                tools:text="FOGO" />
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

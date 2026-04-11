@@ -3,6 +3,7 @@ package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.di
 import android.content.Context
 import androidx.room.Room
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.local.dao.PokemonDao
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.local.dao.gen_III.MoveGenIIIDao
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.local.database.AppDatabase
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.remote.DummyAPI
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.repository.*
@@ -111,8 +112,11 @@ object AppModulo {
 
     @Provides
     @Singleton
-    fun proverPokemonDetailGen3Repository(dummyAPI: DummyAPI): PokemonDetailGen3Repository {
-        return PokemonDetailGen3RepositoryImpl(dummyAPI)
+    fun proverPokemonDetailGen3Repository(
+        dummyAPI: DummyAPI,
+        moveDao: MoveGenIIIDao // O Hilt injeta isso automaticamente aqui
+    ): PokemonDetailGen3Repository {
+        return PokemonDetailGen3RepositoryImpl(dummyAPI, moveDao)
     }
 
     // UseCases
@@ -152,5 +156,10 @@ object AppModulo {
     @Provides
     fun proverGetPokemonDetailGen3UseCase(repository: PokemonDetailGen3Repository): GetPokemonDetailGen3UseCase {
         return GetPokemonDetailGen3UseCase(repository)
+    }
+
+    @Provides
+    fun provideMoveGenIIIDao(database: AppDatabase): MoveGenIIIDao {
+        return database.moveGenIIIDao()
     }
 }

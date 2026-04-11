@@ -18,5 +18,5 @@ data class Generation3(
     @SerializedName("pokemon_species")
     val pokemonSpecies: List<PokemonSpecies>,
     @SerializedName("moves")
-    val moves: List<MoveGenIII>
+    val moves: List<MoveGenIIIDetail>
 )

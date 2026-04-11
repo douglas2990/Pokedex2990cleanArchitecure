@@ -1,4 +1,4 @@
-package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel
+package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.genIII
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

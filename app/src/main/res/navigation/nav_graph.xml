@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/Generation3OptionsFragment"
-        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3OptionsFragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.genII.Generation3OptionsFragment"
         android:label="Opções Geração III"
         tools:layout="@layout/fragment_generation3_options">
         <action
@@ -48,7 +48,7 @@
     
     <fragment
         android:id="@+id/Generation3Fragment"
-        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3Fragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.genII.Generation3Fragment"
         android:label="Geração III - Hoenn"
         tools:layout="@layout/fragment_generation3">
         <argument
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@+id/Generation3PokemonDetailFragment"
-        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3PokemonDetailFragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.genII.Generation3PokemonDetailFragment"
         android:label="Detalhes GBA"
         tools:layout="@layout/fragment_generation3_pokemon_detail">
         <argument
@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/Generation3MovesFragment"
-        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.Generation3MovesFragment"
+        android:name="com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.genII.Generation3MovesFragment"
         android:label="Moves Geração III"
         tools:layout="@layout/fragment_generation3_moves" />
 

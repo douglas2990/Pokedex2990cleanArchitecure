@@ -3,6 +3,7 @@ package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.repository.gen_
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.remote.DummyAPI
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.gen_iii.Generation3
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.gen_iii.MoveGenIII
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.gen_iii.MoveGenIIIDetail
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.model.gen_iii.PokemonSpecies
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.domain.respository.gen_iii.Generation3Repository
 import javax.inject.Inject
@@ -34,7 +35,13 @@ class Generation3RepositoryImpl @Inject constructor(
                         PokemonSpecies(name = it.name, url = it.url)
                     }.sortedBy { extractId(it.url) },
                     moves = movesDto.results.map {
-                        MoveGenIII(name = it.name, url = it.url)
+                        //MoveGenIII(name = it.name, url = it.url)
+                        MoveGenIIIDetail(
+                            name = it.name,
+                            type = "",             // Valor padrão para listagem geral
+                            learnMethod = "N/A",   // Valor padrão para listagem geral
+                            levelLearnedAt = 0     // Valor padrão para listagem geral
+                        )
                     }
                 )
             } else {

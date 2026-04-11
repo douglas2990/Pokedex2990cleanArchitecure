@@ -1,4 +1,4 @@
-package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui
+package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.genII
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.R
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.databinding.FragmentGeneration3OptionsBinding
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.Generation3ViewModel
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.genIII.Generation3ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +35,7 @@ class Generation3OptionsFragment : Fragment() {
 
         setupObservers()
         setupClickListeners()
-        
+
         // Dispara a busca dos dados
         viewModel.fetchGen3Data()
     }

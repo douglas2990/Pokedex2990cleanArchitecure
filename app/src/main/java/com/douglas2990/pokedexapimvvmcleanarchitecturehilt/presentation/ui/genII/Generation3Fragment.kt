@@ -1,4 +1,4 @@
-package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui
+package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.ui.genII
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.R
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.databinding.FragmentGeneration3Binding
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.Generation3ListMovesAdapter
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.PokemonSpeciesGenIIIAdapter
-import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.Generation3ViewModel
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.genIII.Generation3ListMovesAdapter
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.genIII.PokemonSpeciesGenIIIAdapter
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.viewmodel.genIII.Generation3ViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter
+package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.genIII
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

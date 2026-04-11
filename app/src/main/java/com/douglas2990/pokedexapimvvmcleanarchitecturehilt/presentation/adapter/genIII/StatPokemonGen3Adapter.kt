@@ -1,5 +1,7 @@
-package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter
+package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.presentation.adapter.genIII
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +25,16 @@ class StatPokemonGen3Adapter(
         val stat = stats[position]
         holder.binding.textNameBaseStatus.text = stat.name.uppercase()
         holder.binding.textNameValorStatus.text = stat.baseStat.toString()
+
         holder.binding.progressBarStatus.progress = stat.baseStat
+
+        // Cor dinâmica baseada no valor
+        val color = when {
+            stat.baseStat < 50 -> "#FF5959"  // Ruim
+            stat.baseStat < 90 -> "#FFCC52"  // Médio
+            else -> "#48D0B0"                // Bom
+        }
+        holder.binding.progressBarStatus.progressTintList = ColorStateList.valueOf(Color.parseColor(color))
     }
 
     override fun getItemCount(): Int = stats.size

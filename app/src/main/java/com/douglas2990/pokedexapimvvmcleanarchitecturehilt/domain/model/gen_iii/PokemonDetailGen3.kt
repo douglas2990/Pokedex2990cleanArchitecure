@@ -10,11 +10,11 @@ data class PokemonDetailGen3(
     @SerializedName("sprites")
     val sprites: PokemonSpritesGen3,
     @SerializedName("types")
-    val tipos: List<TypeGen3>, // Alterado de String para objeto
+    val tipos: List<TypeGen3>,
     @SerializedName("stats")
     val status: List<PokemonStatGen3>,
     @SerializedName("moves")
-    val golpes: List<String>,
+    val golpes: List<MoveGenIIIDetail>, // Certifique-se que o nome é EXATAMENTE 'golpes'
     @SerializedName("egg_groups")
     val eggGroups: List<String>
 )

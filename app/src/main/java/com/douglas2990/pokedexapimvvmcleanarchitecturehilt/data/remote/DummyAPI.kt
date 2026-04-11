@@ -3,6 +3,7 @@ package com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.remote
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.PokemonList
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.detailPokemon.DetailPokemon
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.gen_iii.Generation3DTO
+import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.gen_iii.MoveDetailDTO
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.gen_iii.MoveListDTO
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.gen_iii.PokemonSpeciesDetailGen3DTO
 import com.douglas2990.pokedexapimvvmcleanarchitecturehilt.data.dto.gen_iii.PokemonSpeciesListDTO
@@ -55,4 +56,11 @@ interface DummyAPI {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
     ): Response<MoveListDTO>
+
+    @GET("move/{name}")
+    suspend fun getMoveDetail(
+        @Path("name") name: String
+    ): Response<MoveDetailDTO>
+
+
 }
