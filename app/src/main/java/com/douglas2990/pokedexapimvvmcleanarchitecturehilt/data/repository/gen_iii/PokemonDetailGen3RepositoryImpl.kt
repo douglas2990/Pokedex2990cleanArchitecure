@@ -125,29 +125,6 @@ class PokemonDetailGen3RepositoryImpl @Inject constructor(
         speciesDto: PokemonSpeciesDetailGen3DTO,
         moves: List<MoveGenIIIDetail>
     ): PokemonDetailGen3 {
-        // ... sua lógica de assemblePokemonDetail permanece a mesma, ela já está boa!
-        // Apenas certifique-se de manter a ordenação que você já criou.
-        /*val pastGen3Type = dto.pastTypes?.find { it.generation.name.contains("generation-iii") }
-        val finalTypes = pastGen3Type?.types?.map { TypeGen3(it.type.name, it.type.url) }
-            ?: dto.types.map { TypeGen3(it.type.name, it.type.url) }*/
-
-/*        val finalTypes = if (!dto.pastTypes.isNullOrEmpty()) {
-            // Procuramos o histórico que seja da Gen 3 ou o mais próximo DEPOIS dela
-            // (Pois se ele era 'X' até a Gen 5, ele também era 'X' na Gen 3)
-            val pastTypeForGen3 = dto.pastTypes.find { past ->
-                val gen = past.generation.name.lowercase()
-                gen.contains("generation-iii") ||
-                        gen.contains("generation-iv") ||
-                        gen.contains("generation-v")
-            }
-
-            // Se achou um histórico que englobe a Gen 3, usa ele.
-            // Se não achou, usa o types atual (que é o caso do Magnemite, que já era Steel na Gen 3)
-            pastTypeForGen3?.types?.map { TypeGen3(it.type.name, it.type.url) }
-                ?: dto.types.map { TypeGen3(it.type.name, it.type.url) }
-        } else {
-            dto.types.map { TypeGen3(it.type.name, it.type.url) }
-        }*/
 
         val finalTypes = if (!dto.pastTypes.isNullOrEmpty()) {
             // 1. Pegamos todos os históricos que aconteceram DA Geração 3 para frente
