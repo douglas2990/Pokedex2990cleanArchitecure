@@ -127,9 +127,45 @@ class PokemonDetailGen3RepositoryImpl @Inject constructor(
     ): PokemonDetailGen3 {
         // ... sua lógica de assemblePokemonDetail permanece a mesma, ela já está boa!
         // Apenas certifique-se de manter a ordenação que você já criou.
-        val pastGen3Type = dto.pastTypes?.find { it.generation.name.contains("generation-iii") }
+        /*val pastGen3Type = dto.pastTypes?.find { it.generation.name.contains("generation-iii") }
         val finalTypes = pastGen3Type?.types?.map { TypeGen3(it.type.name, it.type.url) }
-            ?: dto.types.map { TypeGen3(it.type.name, it.type.url) }
+            ?: dto.types.map { TypeGen3(it.type.name, it.type.url) }*/
+
+/*        val finalTypes = if (!dto.pastTypes.isNullOrEmpty()) {
+            // Procuramos o histórico que seja da Gen 3 ou o mais próximo DEPOIS dela
+            // (Pois se ele era 'X' até a Gen 5, ele também era 'X' na Gen 3)
+            val pastTypeForGen3 = dto.pastTypes.find { past ->
+                val gen = past.generation.name.lowercase()
+                gen.contains("generation-iii") ||
+                        gen.contains("generation-iv") ||
+                        gen.contains("generation-v")
+            }
+
+            // Se achou um histórico que englobe a Gen 3, usa ele.
+            // Se não achou, usa o types atual (que é o caso do Magnemite, que já era Steel na Gen 3)
+            pastTypeForGen3?.types?.map { TypeGen3(it.type.name, it.type.url) }
+                ?: dto.types.map { TypeGen3(it.type.name, it.type.url) }
+        } else {
+            dto.types.map { TypeGen3(it.type.name, it.type.url) }
+        }*/
+
+        val finalTypes = if (!dto.pastTypes.isNullOrEmpty()) {
+            // 1. Pegamos todos os históricos que aconteceram DA Geração 3 para frente
+            // (Pois o que mudou na Gen 6 ou Gen 10 ainda reflete o que ele era na Gen 3)
+            val historicosValidos = dto.pastTypes.filter { past ->
+                val genNumber = extractGenNumber(past.generation.url)
+                genNumber >= 3
+            }
+
+            // 2. Pegamos o histórico mais "antigo" dessa lista (o primeiro que mudou após a Gen 3)
+            val alvo = historicosValidos.minByOrNull { extractGenNumber(it.generation.url) }
+
+            alvo?.types?.map { TypeGen3(it.type.name, it.type.url) } ?: dto.types.map { TypeGen3(it.type.name, it.type.url) }
+        } else {
+            dto.types.map { TypeGen3(it.type.name, it.type.url) }
+        }
+
+
 
         return PokemonDetailGen3(
             id = dto.id,
@@ -140,6 +176,11 @@ class PokemonDetailGen3RepositoryImpl @Inject constructor(
             golpes = moves.sortedWith(compareBy({ it.levelLearnedAt }, { it.name })),
             eggGroups = speciesDto.eggGroups.map { it.name }
         )
+    }
+
+    // Função auxiliar para pegar o número da geração da URL: ".../generation/3/"
+    private fun extractGenNumber(url: String): Int {
+        return url.trimEnd('/').split('/').lastOrNull()?.toIntOrNull() ?: 99
     }
 
     // Função auxiliar apenas para organizar a bagunça dos sprites

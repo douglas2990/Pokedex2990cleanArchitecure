@@ -70,6 +70,9 @@ class Generation3PokemonDetailFragment : Fragment() {
     private fun setupObservers() {
         viewModel.pokemonDetail.observe(viewLifecycleOwner) { detail ->
             detail?.let { pokemon ->
+                android.util.Log.d("POKEDEX_GEN3", "--- Diagnóstico Pokemon: ${pokemon.nome} ---")
+                android.util.Log.d("POKEDEX_GEN3", "ID: ${pokemon.id}")
+                android.util.Log.d("POKEDEX_GEN3", "Tipos Atuais: ${pokemon.tipos.map { it.name }}")
                 presentLoading(false)
 
                 // Nome e ID formatado (#001 NAME)
@@ -83,9 +86,37 @@ class Generation3PokemonDetailFragment : Fragment() {
                     ?: ""
                 binding.detailPokemon.load(gbaImage)
 
+
+                val tiposHistoricos = pokemon.pastTypes?.find { past ->
+                    val genName = past.generation.name.lowercase()
+                    // Se o histórico for válido até a Gen 3, 4 ou 5, ele reflete o estado da Gen 3
+                    genName.contains("generation-iii") ||
+                            genName.contains("generation-iv") ||
+                            genName.contains("generation-v")
+                }?.types // Se achou, pega os tipos daquela época
+
+                // Se achou tipos históricos, usa eles. Se não (pastTypes vazio), usa os atuais.
+                //var tiposParaExibir = List<Any>
+
+
+                val tiposParaExibir = tiposHistoricos ?: pokemon.tipos
+
+                android.util.Log.d("POKEDEX_GEN3", "Tipos Atuais: $tiposParaExibir")
+
                 // Tipos do Pokémon (Grid dinâmico baseado na quantidade de tipos)
-                binding.recyclerTypeGen3.layoutManager = GridLayoutManager(context, pokemon.tipos.size)
-                binding.recyclerTypeGen3.adapter = TypePokemonGen3Adapter(pokemon.tipos)
+                val tiposExibicao = if (!pokemon.pastTypes.isNullOrEmpty()) {
+                    // Tenta encontrar os tipos que ele tinha antes da Gen 6
+                    // PokeAPI lista em past_types os tipos ATÉ aquela geração mencionada
+                    pokemon.pastTypes.first().types
+                } else {
+                    // Se não tem past_types, o tipo nunca mudou (ex: Pikachu sempre foi elétrico)
+                    pokemon.tipos
+                }
+                binding.recyclerTypeGen3.layoutManager = GridLayoutManager(context, tiposParaExibir.size)
+                binding.recyclerTypeGen3.adapter = TypePokemonGen3Adapter(tiposParaExibir)
+                //binding.recyclerTypeGen3.adapter = TypePokemonGen3Adapter(pokemon.tipos)
+                //binding.recyclerTypeGen3.adapter = TypePokemonGen3Adapter(pokemon.pastTypes[0].types)
+                android.util.Log.d("POKEDEX_DEBUG", "Pokemon: ${pokemon.nome} tem histórico? ${pokemon.pastTypes?.isNotEmpty()}")
 
                 // Estatísticas Base
                 binding.recyclerViewBaseStatus.adapter = StatPokemonGen3Adapter(pokemon.status)

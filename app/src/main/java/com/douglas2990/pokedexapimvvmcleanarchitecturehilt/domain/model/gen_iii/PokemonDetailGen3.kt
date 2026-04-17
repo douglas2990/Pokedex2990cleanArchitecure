@@ -16,10 +16,26 @@ data class PokemonDetailGen3(
     @SerializedName("moves")
     val golpes: List<MoveGenIIIDetail>, // Certifique-se que o nome é EXATAMENTE 'golpes'
     @SerializedName("egg_groups")
-    val eggGroups: List<String>
+    val eggGroups: List<String>,
+    @SerializedName("past_types")
+    val pastTypes: List<PastTypeDTO>? = emptyList()
 )
 
 data class TypeGen3(
     val name: String,
+    val url: String
+)
+
+data class PastTypeDTO(
+    @SerializedName("generation")
+    val generation: GenerationDTO,
+    @SerializedName("types")
+    val types: List<TypeGen3>
+)
+
+data class GenerationDTO(
+    @SerializedName("name")
+    val name: String, // ex: "generation-v"
+    @SerializedName("url")
     val url: String
 )

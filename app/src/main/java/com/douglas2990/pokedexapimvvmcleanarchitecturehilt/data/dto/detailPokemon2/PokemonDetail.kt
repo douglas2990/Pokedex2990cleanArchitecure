@@ -94,3 +94,17 @@ data class MoveDTO(
     @SerializedName("url")
     val url: String
 )
+
+data class PastTypeDTO(
+    @SerializedName("generation")
+    val generation: GenerationDTO,
+    @SerializedName("types")
+    val types: List<TypeSlotDTO>
+)
+
+data class GenerationDTO(
+    @SerializedName("name")
+    val name: String, // ex: "generation-v"
+    @SerializedName("url")
+    val url: String
+)
